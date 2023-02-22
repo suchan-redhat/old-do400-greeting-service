@@ -20,7 +20,13 @@ pipeline{
                 sh "npm test"
             }
         }
-
-        // Add the "Deploy" stage here
+        stage("Release"){
+            steps{
+                sh '''
+                   oc project inixml-greetings
+                   oc start-build greeting-service --follow --wait
+                '''
+            }
+        }
     }
 }
